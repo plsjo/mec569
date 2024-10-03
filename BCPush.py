@@ -19,7 +19,7 @@ from cflib.crazyflie.syncCrazyflie import SyncCrazyflie
 from cflib.positioning.motion_commander import MotionCommander
 from cflib.utils.multiranger import Multiranger
 
-URI = 'radio://0/80/2M'
+URI = 'radio://0/98/2M/E7E7E7E7E8'
 
 if len(sys.argv) > 1:
     URI = sys.argv[1]

@@ -29,7 +29,7 @@ logging.basicConfig(level=logging.ERROR)
 
 
 def is_close(range):
-    MIN_DISTANCE = 0.2  # m
+    MIN_DISTANCE = 0.1  # m
 
     if range is None:
         return False
@@ -48,7 +48,7 @@ if __name__ == '__main__':
                 keep_flying = True
 
                 while keep_flying:
-                    VELOCITY = 0.5
+                    VELOCITY = 0.1
                     velocity_x = 0.0
                     velocity_y = 0.0
 

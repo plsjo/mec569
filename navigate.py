@@ -8,7 +8,7 @@ from cflib.positioning.position_hl_commander import PositionHlCommander
 from cflib.utils.multiranger import Multiranger
 from cflib.utils import uri_helper
 
-URI = 'radio://0/98/2M/8'
+URI = 'radio://0/98/2M2M/E7E7E7E7E8'
 uri = uri_helper.uri_from_env(default='radio://0/98/2M2M/E7E7E7E7E8')
 
 #Only output errors from the logging framework

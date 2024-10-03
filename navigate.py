@@ -15,7 +15,7 @@ uri = uri_helper.uri_from_env(default='radio://0/98/2M2M/E7E7E7E7E8')
 logging.basicConfig(level=logging.ERROR)
 
 def is_close(range):
-    distance = 0.1 #detects if there is an obstacle 0.1 meters in front of drone
+    distance = 0.05 #detects if there is an obstacle 0.1 meters in front of drone
     if range is None:
         return False
     else:
@@ -46,16 +46,16 @@ def to_landing():
 
                             if is_close(multiranger.front): #obstacle detection in front of drone
                                 mc.stop() #Stop and hover if an obstacle is detected
-                                pc.right(0.2) #Move 0.2 meters to the right
-                                pc.back(0.1) #Move 0.1 meter back
+                                pc.right(0.05) #Move 0.2 meters to the right
+                                pc.back(0.05) #Move 0.1 meter back
 
                             elif is_close(multiranger.right): #obstacle detection to right of drone
                                 mc.stop() #Stop and hover if obstacle is detected
-                                pc.left(0.2) #Move 0.2m to left
+                                pc.left(0.05) #Move 0.2m to left
 
                             elif is_close(multiranger.left): #obstacle detection to left of drone
                                 mc.stop() #Stop and hover if obstacle is detected
-                                pc.right(0.2) #Move 0.2m to right
+                                pc.right(0.05) #Move 0.2m to right
                             
                             else:
                                 mc.forward() #Move forward if no obstacle is detected

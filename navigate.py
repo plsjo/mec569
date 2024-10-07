@@ -14,19 +14,20 @@ uri = uri_helper.uri_from_env(default='radio://0/98/2M2M/E7E7E7E8')
 # Only output errors from the logging framework
 logging.basicConfig(level=logging.ERROR)
 
-def is_close(range):
-    distance = 0.05  # Detects if there is an obstacle 0.1 meters in front of drone
-    if range is None:
-        return False
-    else:
-        return range < distance
+distance = 0.05  # Detects if there is an obstacle 0.05 meters from the drone
+below = 0.3  # Detects if the drone is below 0.3 meters from the ground
 
-def box_detected(range):
-    below = 0.3  # Detects if the drone is below 0.3 meters from the ground
+def is_close(range, threshold = distance):
     if range is None:
         return False
     else:
-        return range < below
+        return range < threshold
+
+def box_detected(range, threshold = below):
+    if range is None:
+        return False
+    else:
+        return range < threshold
 
 def to_landing(scf):
     with MotionCommander(scf) as mc:
@@ -39,18 +40,23 @@ def to_landing(scf):
 
                     if is_close(multiranger.front):  # Obstacle detection in front of drone
                         mc.stop()  # Stop and hover if an obstacle is detected
-                        pc.right(0.05)  # Move 0.2 meters to the right
-                        pc.back(0.05)  # Move 0.1 meter back
+                        pc.right(0.05)  # Move 0.05 meters to the right
+                        time.sleep(0.5)
+                        pc.back(0.05)  # Move 0.05 meter back
+                        time.sleep(0.5)
 
                     elif is_close(multiranger.right):  # Obstacle detection to right of drone
                         mc.stop()  # Stop and hover if obstacle is detected
                         pc.left(0.05)  # Move 0.2m to left
+                        time.sleep(0.5)
 
                     elif is_close(multiranger.left):  # Obstacle detection to left of drone
                         mc.stop()  # Stop and hover if obstacle is detected
                         pc.right(0.05)  # Move 0.2m to right
+                        time.sleep(0.5)
                     else:
                         mc.forward()  # Move forward if no obstacle is detected
+                        time.sleep(0.5)
 
                     time.sleep(0.1)  # Check every 0.1 seconds
 
@@ -66,18 +72,23 @@ def to_start(scf):
                     if is_close(multiranger.back):
                         mc.stop()
                         pc.left(0.2)
+                        time.sleep(0.5)
                         pc.forward(0.1)
+                        time.sleep(0.5)
 
                     elif is_close(multiranger.left):
                         mc.stop()
                         pc.right(0.2)
+                        time.sleep(0.5)
 
                     elif is_close(multiranger.right):
                         mc.stop()
                         pc.left(0.2)
+                        time.sleep(0.5)
 
                     else:
                         mc.back()
+                        time.sleep(0.5)
                     time.sleep(0.1)
 
 if __name__ == '__main__':

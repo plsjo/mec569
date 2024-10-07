@@ -23,7 +23,7 @@ def is_close(range, threshold = distance):
     else:
         return range < threshold
 
-def box_detected(range, threshold = below):
+def box_detected(range, threshold = below): #hi
     if range is None:
         return False
     else:

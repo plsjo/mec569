@@ -39,6 +39,8 @@ def to_landing(scf):
             with Multiranger(scf) as multiranger:
                 while True:
                     if box_detected(multiranger.down):  # If there is a box under the drone, it will land
+                        pc.forward(0.1)
+                        time.sleep(0.5)
                         mc.land()
                         break
 
@@ -70,6 +72,8 @@ def to_start(scf):
             with Multiranger(scf) as multiranger:
                 while True:
                     if box_detected(multiranger.down):
+                        pc.back(0.1)
+                        time.sleep(0.5)
                         mc.land()
                         break
 
@@ -102,15 +106,13 @@ if __name__ == '__main__':
     cf = Crazyflie(rw_cache='./cache')
     
     with SyncCrazyflie(URI, cf=cf) as scf:
-        # Initial actions
         with MotionCommander(scf) as mc:
-            print("Taking off...")
             mc.take_off(0.2)  # Hover at 0.2 meters
             time.sleep(1)     # Hover for 1 second
-            print("Moving forward...")
+
             mc.forward()      # Move forward
             time.sleep(1.5)   # Move forward for 1.5 seconds
 
-        # Call functions for obstacle detection and landing
         to_landing(scf)
+        time.sleep(0.5)
         to_start(scf)

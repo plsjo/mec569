@@ -17,17 +17,21 @@ logging.basicConfig(level=logging.ERROR)
 distance = 0.05  # Detects if there is an obstacle 0.05 meters from the drone
 below = 0.3  # Detects if the drone is below 0.3 meters from the ground
 
-def is_close(range, threshold = distance):
-    if range is None:
-        return False
-    else:
-        return range < threshold
+def is_close(range):
+    MIN_DISTANCE = 0.05
 
-def box_detected(range, threshold = below): #hi
     if range is None:
         return False
     else:
-        return range < threshold
+        return range < MIN_DISTANCE
+
+def box_detected(range): #hi
+    MIN_HEIGHT = 0.3
+    
+    if range is None:
+        return False
+    else:
+        return range < MIN_HEIGHT
 
 def to_landing(scf):
     with MotionCommander(scf) as mc:

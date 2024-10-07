@@ -22,10 +22,6 @@ if __name__ == '__main__':
     with SyncCrazyflie(URI, cf=cf) as scf:
         # Use the MotionCommander to control the drone
         with MotionCommander(scf) as mc:
-            print("Taking off...")
             mc.take_off(0.5)  # Hover at 0.5 meters
             time.sleep(5)     # Hover in place for 5 seconds
-            
-            print("Landing...")
             mc.land()
-            print("Landed!")
